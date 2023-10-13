@@ -103,11 +103,6 @@ class RegisterActivity : AppCompatActivity(),
                     validated = false
                 }
 
-                if (!checkBox.isChecked) {
-                    checkBox.error = "You must agree to the terms and conditions"
-                    validated = false
-                }
-
                 if (validated) {
                     startActivity(intentToLoginActivity)
                 }

@@ -28,90 +28,87 @@
             android:textSize="36sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/edit_text_username"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="24dp"
-            android:autofillHints="username"
-            android:background="@drawable/rounded_edit_text"
-            android:fontFamily="@font/poppins"
-            android:hint="Username"
-            android:paddingHorizontal="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/primary" >
 
-        <EditText
-            android:id="@+id/edit_text_email"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/rounded_edit_text"
-            android:fontFamily="@font/poppins"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="emailAddress" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:autofillHints="username"
+                android:fontFamily="@font/poppins"
+                android:hint="Username" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_text_password"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="16dp"
-            android:autofillHints="password"
-            android:background="@drawable/rounded_edit_text"
-            android:fontFamily="@font/poppins"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingHorizontal="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/primary" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/poppins"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleContentDescription="Toggle password visibility"
+            app:errorEnabled="true"
+            app:boxStrokeColor="@color/primary" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:hint="Password"
+                android:inputType="textPassword"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <EditText
-                android:id="@+id/edit_text_birthdate"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="4"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/rounded_edit_text"
-                android:fontFamily="@font/poppins"
-                android:paddingHorizontal="32dp"
-                android:hint="Birthdate (dd/mm/yyyy)"
-                android:inputType="date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                app:boxStrokeColor="@color/primary" >
 
-            <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_birthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:fontFamily="@font/poppins"
+                    android:hint="Birthdate (dd/mm/yyyy)"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_show_calendar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/rounded_btn"
-                app:backgroundTint="#525BFF"
-                android:drawableEnd="@drawable/ic_edit_calendar" />
+                android:drawableLeft="@drawable/ic_edit_calendar"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                tools:ignore="RtlHardcoded" />
 
         </LinearLayout>
-
-
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins"
-            android:text="@string/terms_and_conditions"
-            android:textSize="11sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -124,7 +121,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_form_register">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,10 +130,7 @@
             android:fontFamily="@font/poppins"
             android:text="Register"
             android:textSize="16sp"
-            app:backgroundTint="#525BFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:backgroundTint="#525BFF" />
 
         <TextView
             android:id="@+id/text_view_redirect_login"

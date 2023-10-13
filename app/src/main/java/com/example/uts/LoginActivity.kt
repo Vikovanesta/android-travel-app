@@ -54,6 +54,8 @@ class LoginActivity : AppCompatActivity() {
                     email != correctEmail ||
                     password != correctPassword) {
                     editTextUsername.error = "User not found"
+                    editTextEmail.error = "User not found"
+                    editTextPassword.error = "User not found"
                     validated = false
                 }
 
