@@ -16,6 +16,52 @@ class LoginActivity : AppCompatActivity() {
 
         with(binding) {
 
+            // Get extra data from register activity
+            val correctUsername = intent.getStringExtra(RegisterActivity.EXTRA_USERNAME)
+            val correctEmail = intent.getStringExtra(RegisterActivity.EXTRA_EMAIL)
+            val correctPassword = intent.getStringExtra(RegisterActivity.EXTRA_PASSWORD)
+
+            // Go to home activity
+            btnLogin.setOnClickListener {
+                val intentToHomeActivity =
+                    android.content.Intent(
+                        this@LoginActivity,
+                        HomeActivity::class.java
+                    )
+
+                // Validation
+                var validated = true
+                val username = editTextUsername.text.toString()
+                val password = editTextPassword.text.toString()
+                val email = editTextEmail.text.toString()
+
+                if (username.isEmpty()) {
+                    editTextUsername.error = "Username is required"
+                    validated = false
+                }
+                if (password.isEmpty()) {
+                    editTextPassword.error = "Password is required"
+                    validated = false
+                }
+                if (email.isEmpty()) {
+                    editTextEmail.error = "Email is required"
+                    validated = false
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    editTextEmail.error = "Invalid email format"
+                    validated = false
+                }
+                if (username != correctUsername ||
+                    email != correctEmail ||
+                    password != correctPassword) {
+                    editTextUsername.error = "User not found"
+                    validated = false
+                }
+
+                if (validated) {
+                    startActivity(intentToHomeActivity)
+                }
+            }
+
             //Clickable span to redirect to register activity
             val spannableString = android.text.SpannableString(textViewRedirectRegister.text)
             val clickableSpan = object : ClickableSpan() {

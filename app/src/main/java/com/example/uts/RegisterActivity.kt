@@ -18,7 +18,7 @@ class RegisterActivity : AppCompatActivity(),
     companion object {
         const val EXTRA_USERNAME = "extra_username"
         const val EXTRA_EMAIL = "extra_email"
-        const val EXTRA_BIRTHDATE = "extra_birthdate"
+        const val EXTRA_PASSWORD = "extra_password"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,25 +51,25 @@ class RegisterActivity : AppCompatActivity(),
 
                 intentToLoginActivity.putExtra(EXTRA_USERNAME, username)
                 intentToLoginActivity.putExtra(EXTRA_EMAIL, email)
-                intentToLoginActivity.putExtra(EXTRA_BIRTHDATE, birthdate)
+                intentToLoginActivity.putExtra(EXTRA_PASSWORD, password)
 
                 // Validation
                 var validated = true
 
                 if (username.isEmpty()) {
-                    editTextUsername.error = "Username tidak boleh kosong"
+                    editTextUsername.error = "Username is required"
                     validated = false
                 }
 
                 if (email.isEmpty()) {
-                    editTextEmail.error = "Email tidak boleh kosong"
+                    editTextEmail.error = "Email is required"
                     validated = false
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    editTextEmail.error = "Format email tidak valid"
+                    editTextEmail.error = "Invalid email format"
                     validated = false
                 }
                 if (birthdate.isEmpty()) {
-                    editTextBirthdate.error = "Tanggal lahir tidak boleh kosong"
+                    editTextBirthdate.error = "Birthdate is required"
                     validated = false
                 }
                 else if (birthdate.length != 10 ||
@@ -77,7 +77,7 @@ class RegisterActivity : AppCompatActivity(),
                     birthdate[2] != '/' ||
                     birthdate[5] != '/')
                 {
-                    editTextBirthdate.error = "Format tanggal lahir tidak valid"
+                    editTextBirthdate.error = "Invalid birthdate format"
                     validated = false
                 }
                 else if (birthdate.substring(0, 2).toInt() > 31 ||
@@ -86,25 +86,25 @@ class RegisterActivity : AppCompatActivity(),
                     birthdate.substring(3, 5).toInt() < 1 ||
                     birthdate.substring(6, 10).toInt() < 1900)
                 {
-                    editTextBirthdate.error = "Tanggal lahir tidak valid"
+                    editTextBirthdate.error = "Invalid birthdate"
                     validated = false
                 }
                 else if (currentYear - birthdate.substring(6, 10).toInt() < 15)
                 {
-                    editTextBirthdate.error = "Anda belum cukup umur untuk mendaftar"
+                    editTextBirthdate.error = "You must be at least 15 years old"
                     validated = false
                 }
 
                 if (password.isEmpty()) {
-                    editTextPassword.error = "Password tidak boleh kosong"
+                    editTextPassword.error = "Password is required"
                     validated = false
                 } else if (password.length < 8) {
-                    editTextPassword.error = "Password minimal 8 karakter"
+                    editTextPassword.error = "Password must be at least 8 characters long"
                     validated = false
                 }
 
                 if (!checkBox.isChecked) {
-                    checkBox.error = "Anda harus menyetujui syarat dan ketentuan"
+                    checkBox.error = "You must agree to the terms and conditions"
                     validated = false
                 }
 
@@ -135,17 +135,17 @@ class RegisterActivity : AppCompatActivity(),
     }
 
     override fun onDateSet(p0: android.widget.DatePicker?, p1: Int, p2: Int, p3: Int) {
-        val selectedDate: String
 
-        if (p3 < 10 && p2 < 9) {
-            selectedDate = "0$p3/0${p2 + 1}/$p1"
-        } else if (p3 < 10) {
-            selectedDate = "0$p3/${p2 + 1}/$p1"
-        } else if (p2 < 9) {
-            selectedDate = "$p3/0${p2 + 1}/$p1"
-        } else {
-            selectedDate = "$p3/${p2 + 1}/$p1"
-        }
+        val selectedDate: String =
+            if (p3 < 10 && p2 < 9) {
+                "0$p3/0${p2 + 1}/$p1"
+            } else if (p3 < 10) {
+                "0$p3/${p2 + 1}/$p1"
+            } else if (p2 < 9) {
+                "$p3/0${p2 + 1}/$p1"
+            } else {
+                "$p3/${p2 + 1}/$p1"
+            }
         binding.editTextBirthdate.setText(selectedDate)
     }
 }
