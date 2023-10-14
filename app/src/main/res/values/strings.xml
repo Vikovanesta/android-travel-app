@@ -21,6 +21,16 @@
     <string name="submit">Submit</string>
     <string name="travel_packages">Travel Packages:</string>
     <string name="add_travel_plan">Add Travel Plan</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="dinner">Dinner</string>
+    <string name="lunch">Lunch</string>
+    <string name="window_seat">Window seat</string>
+    <string name="aisle_seat">Aisle seat</string>
+    <string name="front_seat">Front seat</string>
+    <string name="wifi">Wifi</string>
+    <string name="extra_baggage">Extra baggage</string>
+    <string name="pillow">Pillow</string>
+    <string name="blanket">Blanket</string>
     <array name="train_classes">
         <item>Executive</item>
         <item>Business</item>

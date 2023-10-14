@@ -26,12 +26,24 @@ class HomeActivity : AppCompatActivity() {
                 val trainDeparture = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DEPARTURE)
                 val trainDestination = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DESTINATION)
                 val travelDate = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DATE)
+                val travelPackages = data?.getStringArrayExtra(InputTravelPlanActivity.EXTRA_TRAVEL_PACKAGES)
 
                 with(binding) {
                     textViewTrainClass.text = ": $trainClass"
                     textViewTravelDeparture.text = ": $trainDeparture"
                     textViewTravelDestination.text = ": $trainDestination"
                     textViewTravelDate.text = ": $travelDate"
+
+                    binding.travelPackages.removeAllViews()
+
+                    travelPackages?.forEach { trainPackage ->
+                        val androidChip = com.google.android.material.chip.Chip(this@HomeActivity)
+                        androidChip.apply {
+                            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            text = trainPackage
+                        }
+                        binding.travelPackages.addView(androidChip)
+                    }
                 }
             }
         }
@@ -42,14 +54,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         with(binding) {
-            for (i in 1..5) {
-                val androidChip = com.google.android.material.chip.Chip(this@HomeActivity)
-                androidChip.apply {
-                    layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                    text = "Package"
-                }
-                travelPackages.addView(androidChip)
-            }
 
             // Go to input travel plan activity
             btnAddTravelPlan.setOnClickListener{

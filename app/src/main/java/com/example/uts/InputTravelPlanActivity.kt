@@ -55,11 +55,41 @@ class InputTravelPlanActivity : AppCompatActivity(),
                 val selectedTrainDeparture: String = spinnerTravelDeparture.selectedItem.toString()
                 val selectedTrainDestination: String = spinnerTravelDestination.selectedItem.toString()
                 val selectedTravelDate: String = editTextTravelDate.text.toString()
+                val selectedTravelPackages: MutableList<String> = mutableListOf()
+
+                if (toggleLunch.isChecked) {
+                    selectedTravelPackages.add("Lunch")
+                }
+                if (toggleDinner.isChecked) {
+                    selectedTravelPackages.add("Dinner")
+                }
+                if (toggleBreakfast.isChecked) {
+                    selectedTravelPackages.add("Breakfast")
+                }
+                if (toggleAisleSeat.isChecked) {
+                    selectedTravelPackages.add("Aisle Seat")
+                }
+                if (toggleWindowSeat.isChecked) {
+                    selectedTravelPackages.add("Window Seat")
+                }
+                if (toggleExtraBaggage.isChecked) {
+                    selectedTravelPackages.add("Extra Baggage")
+                }
+                if (toggleWifi.isChecked) {
+                    selectedTravelPackages.add("Wifi")
+                }
+                if (toggleBlanket.isChecked) {
+                    selectedTravelPackages.add("Blanket")
+                }
+                if (togglePillow.isChecked) {
+                    selectedTravelPackages.add("Pillow")
+                }
 
                 intent.putExtra(EXTRA_TRAIN_CLASS, selectedTrainClass)
                 intent.putExtra(EXTRA_TRAVEL_DEPARTURE, selectedTrainDeparture)
                 intent.putExtra(EXTRA_TRAVEL_DESTINATION, selectedTrainDestination)
                 intent.putExtra(EXTRA_TRAVEL_DATE, selectedTravelDate)
+                intent.putExtra(EXTRA_TRAVEL_PACKAGES, selectedTravelPackages.toTypedArray())
 
                 setResult(RESULT_OK, intent)
                 finish()
