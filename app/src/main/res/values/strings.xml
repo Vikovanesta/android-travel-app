@@ -31,6 +31,7 @@
     <string name="extra_baggage">Extra baggage</string>
     <string name="pillow">Pillow</string>
     <string name="blanket">Blanket</string>
+    <string name="check_travel_schedule">Check Travel Schedule:</string>
     <array name="train_classes">
         <item>Executive</item>
         <item>Business</item>

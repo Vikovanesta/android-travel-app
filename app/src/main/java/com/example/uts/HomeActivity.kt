@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.uts.databinding.ActivityHomeBinding
 import com.example.uts.databinding.ActivityRegisterBinding
@@ -55,7 +56,6 @@ class HomeActivity : AppCompatActivity() {
 
         with(binding) {
 
-            // Go to input travel plan activity
             btnAddTravelPlan.setOnClickListener{
                 val intentToInputTravelPlanActivity =
                     Intent(
@@ -63,6 +63,37 @@ class HomeActivity : AppCompatActivity() {
                         InputTravelPlanActivity::class.java
                     )
                 launcher.launch(intentToInputTravelPlanActivity)
+            }
+
+
+
+            datePicker.init(
+                datePicker.year,
+                datePicker.month,
+                datePicker.dayOfMonth
+            ) {_, p1, p2, p3 ->
+                val travelDate = textViewTravelDate.text.toString().replace(": ", "")
+                val selectedDate: String =
+                    if (p3 < 10 && p2 < 9) {
+                        "0$p3/0${p2 + 1}/$p1"
+                    } else if (p3 < 10) {
+                        "0$p3/${p2 + 1}/$p1"
+                    } else if (p2 < 9) {
+                        "$p3/0${p2 + 1}/$p1"
+                    } else {
+                        "$p3/${p2 + 1}/$p1"
+                    }
+                if (selectedDate == travelDate) {
+                    Toast.makeText(
+                        this@HomeActivity,
+                        "There is a travel plan scheduled on $selectedDate", Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this@HomeActivity,
+                        "No travel plan scheduled on $selectedDate", Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
