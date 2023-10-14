@@ -28,12 +28,14 @@ class HomeActivity : AppCompatActivity() {
                 val trainDestination = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DESTINATION)
                 val travelDate = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DATE)
                 val travelPackages = data?.getStringArrayExtra(InputTravelPlanActivity.EXTRA_TRAVEL_PACKAGES)
+                val totalPrice = data?.getIntExtra(InputTravelPlanActivity.EXTRA_TRAVEL_PRICE, 0)
 
                 with(binding) {
                     textViewTrainClass.text = ": $trainClass"
                     textViewTravelDeparture.text = ": $trainDeparture"
                     textViewTravelDestination.text = ": $trainDestination"
                     textViewTravelDate.text = ": $travelDate"
+                    textViewTravelPrice.text = ": Rp$totalPrice,00"
 
                     binding.travelPackages.removeAllViews()
 

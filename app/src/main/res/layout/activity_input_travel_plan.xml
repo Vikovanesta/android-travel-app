@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Add New Travel Plan"
+            android:text="@string/add_new_travel_plan"
             android:textAlignment="center"
             android:textSize="28sp" />
 
@@ -173,6 +173,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:orientation="horizontal" >
 
             <com.google.android.material.textfield.TextInputLayout
@@ -200,6 +201,29 @@
                 tools:ignore="RtlHardcoded" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/total_price"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/text_view_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="@string/rp0_00"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
