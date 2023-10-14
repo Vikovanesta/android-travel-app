@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
-            android:text="Login"
+            android:fontFamily="@font/poppins_bold"
+            android:text="@string/login"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold" />
@@ -39,7 +40,7 @@
                 android:layout_marginBottom="24dp"
                 android:autofillHints="username"
                 android:fontFamily="@font/poppins"
-                android:hint="Username" />
+                android:hint="@string/username" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/poppins"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 />
 
@@ -88,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Remember Me"
+                android:text="@string/remember_me"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="Forgot Password?"
+                android:text="@string/forgot_password"
                 android:textSize="12sp"
                 android:textColor="#525BFF"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +127,7 @@
             android:layout_marginBottom="18dp"
             android:background="@drawable/rounded_btn"
             android:fontFamily="@font/poppins"
-            android:text="Login"
+            android:text="@string/login"
             android:textSize="16sp"
             app:backgroundTint="#525BFF"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -138,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
-            android:text="New Member? Register"
+            android:text="@string/new_member_register"
             android:textAlignment="center" />
 
     </LinearLayout>
