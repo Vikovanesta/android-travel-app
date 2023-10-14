@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.uts.databinding.ActivityHomeBinding
@@ -37,7 +38,20 @@ class HomeActivity : AppCompatActivity() {
                     textViewTravelDate.text = ": $travelDate"
                     textViewTravelPrice.text = ": Rp$totalPrice,00"
 
+                    textViewNoTravelPlan.visibility = ViewGroup.GONE
+                    travelPlanCard.visibility = ViewGroup.VISIBLE
+                    checkTravelSchedule.visibility = ViewGroup.VISIBLE
+
                     binding.travelPackages.removeAllViews()
+
+                    if (travelPackages.isNullOrEmpty()) {
+                        val textView = TextView(this@HomeActivity)
+                        textView.apply {
+                            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            text = "No travel packages selected"
+                        }
+                        binding.travelPackages.addView(textView)
+                    }
 
                     travelPackages?.forEach { trainPackage ->
                         val androidChip = com.google.android.material.chip.Chip(this@HomeActivity)

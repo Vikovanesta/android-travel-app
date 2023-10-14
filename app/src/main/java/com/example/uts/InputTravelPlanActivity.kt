@@ -1,5 +1,6 @@
 package com.example.uts
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
+import android.widget.Toast
 import com.example.uts.databinding.ActivityInputTravelPlanBinding
 
 class InputTravelPlanActivity : AppCompatActivity(),
@@ -22,6 +24,7 @@ class InputTravelPlanActivity : AppCompatActivity(),
         const val EXTRA_TRAVEL_PACKAGES = "extra_travel_packages"
         const val EXTRA_TRAVEL_PRICE = "extra_travel_price"
     }
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInputTravelPlanBinding.inflate(layoutInflater)
@@ -177,15 +180,77 @@ class InputTravelPlanActivity : AppCompatActivity(),
                 val selectedTravelDate: String = editTextTravelDate.text.toString()
                 val selectedTravelPackages: MutableList<String> = mutableListOf()
 
-                intent.putExtra(EXTRA_TRAIN_CLASS, selectedTrainClass)
-                intent.putExtra(EXTRA_TRAVEL_DEPARTURE, selectedTrainDeparture)
-                intent.putExtra(EXTRA_TRAVEL_DESTINATION, selectedTrainDestination)
-                intent.putExtra(EXTRA_TRAVEL_DATE, selectedTravelDate)
-                intent.putExtra(EXTRA_TRAVEL_PACKAGES, selectedTravelPackages.toTypedArray())
-                intent.putExtra(EXTRA_TRAVEL_PRICE, totalPrice)
+                if (toggleLunch.isChecked) {
+                    selectedTravelPackages.add("Lunch")
+                }
+                if (toggleDinner.isChecked) {
+                    selectedTravelPackages.add("Dinner")
+                }
+                if (toggleBreakfast.isChecked) {
+                    selectedTravelPackages.add("Breakfast")
+                }
+                if (toggleAisleSeat.isChecked) {
+                    selectedTravelPackages.add("Aisle Seat")
+                }
+                if (toggleWindowSeat.isChecked) {
+                    selectedTravelPackages.add("Window Seat")
+                }
+                if (toggleExtraBaggage.isChecked) {
+                    selectedTravelPackages.add("Extra Baggage")
+                }
+                if (toggleWifi.isChecked) {
+                    selectedTravelPackages.add("Wifi")
+                }
+                if (toggleBlanket.isChecked) {
+                    selectedTravelPackages.add("Blanket")
+                }
+                if (togglePillow.isChecked) {
+                    selectedTravelPackages.add("Pillow")
+                }
 
-                setResult(RESULT_OK, intent)
-                finish()
+                //Validate
+                var validated = true
+
+                if (selectedTrainDeparture == selectedTrainDestination) {
+                    Toast.makeText(
+                        this@InputTravelPlanActivity,
+                        "Departure and destination cannot be the same",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    validated = false
+                }
+                if (selectedTravelDate.isEmpty()) {
+                    editTextTravelDate.error = "Travel date is required"
+                    validated = false
+                }
+                else if (selectedTravelDate.length != 10 ||
+                    !selectedTravelDate.contains("/") ||
+                    selectedTravelDate[2] != '/' ||
+                    selectedTravelDate[5] != '/')
+                {
+                    editTextTravelDate.error = "Invalid travel date format"
+                    validated = false
+                }
+                else if (selectedTravelDate.substring(0, 2).toInt() > 31 ||
+                    selectedTravelDate.substring(0, 2).toInt() < 1 ||
+                    selectedTravelDate.substring(3, 5).toInt() > 12 ||
+                    selectedTravelDate.substring(3, 5).toInt() < 1)
+                {
+                    editTextTravelDate.error = "Invalid travel date"
+                    validated = false
+                }
+
+                if (validated) {
+                    intent.putExtra(EXTRA_TRAIN_CLASS, selectedTrainClass)
+                    intent.putExtra(EXTRA_TRAVEL_DEPARTURE, selectedTrainDeparture)
+                    intent.putExtra(EXTRA_TRAVEL_DESTINATION, selectedTrainDestination)
+                    intent.putExtra(EXTRA_TRAVEL_DATE, selectedTravelDate)
+                    intent.putExtra(EXTRA_TRAVEL_PACKAGES, selectedTravelPackages.toTypedArray())
+                    intent.putExtra(EXTRA_TRAVEL_PRICE, totalPrice)
+
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
             }
         }
     }

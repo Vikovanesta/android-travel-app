@@ -37,6 +37,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/text_view_no_travel_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/you_have_no_travel_plan_yet"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
             <Button
                 android:id="@+id/btn_add_travel_plan"
                 android:layout_width="wrap_content"
@@ -51,11 +63,12 @@
                 android:drawableEnd="@drawable/ic_add" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/travel_plan"
+                android:id="@+id/travel_plan_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:strokeWidth="2dp">
+                app:strokeWidth="2dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -223,25 +236,32 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/check_travel_schedule"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/poppins_bold"
-                android:text="@string/check_travel_schedule"
-                android:textSize="20sp" />
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <DatePicker
-                android:id="@+id/date_picker"
-                android:datePickerMode="calendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:headerBackground="@color/primary"
-                android:scaleY="0.9"
-                android:scaleX="0.9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/check_travel_schedule"
+                    android:textSize="20sp" />
 
+                <DatePicker
+                    android:id="@+id/date_picker"
+                    android:datePickerMode="calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:headerBackground="@color/primary"
+                    android:scaleY="0.9"
+                    android:scaleX="0.9"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
