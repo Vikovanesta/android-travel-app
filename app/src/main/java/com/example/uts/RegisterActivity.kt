@@ -30,20 +30,17 @@ class RegisterActivity : AppCompatActivity(),
             val calendar = Calendar.getInstance()
             val currentYear = calendar.get(Calendar.YEAR)
 
-            // Show date picker
             btnShowCalendar.setOnClickListener {
                 val datePicker = DatePicker()
                 datePicker.show(supportFragmentManager, "date picker")
             }
 
-            // Go to login activity
             btnRegister.setOnClickListener {
                 val intentToLoginActivity =
                     Intent(
                         this@RegisterActivity,
                         LoginActivity::class.java
                     )
-                // Pass data to login activity
                 val username = editTextUsername.text.toString()
                 val email = editTextEmail.text.toString()
                 val birthdate = editTextBirthdate.text.toString()

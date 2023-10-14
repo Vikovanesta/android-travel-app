@@ -45,7 +45,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/rounded_btn"
                 android:fontFamily="@font/poppins"
-                android:text="Add Travel Plan"
+                android:text="@string/add_travel_plan"
                 android:textSize="16sp"
                 app:backgroundTint="#4CAF50"
                 android:drawableEnd="@drawable/ic_add" />
@@ -135,10 +135,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/poppins"
-                                android:text="@string/origin" />
+                                android:text="@string/departure" />
 
                             <TextView
-                                android:id="@+id/text_view_travel_origin"
+                                android:id="@+id/text_view_travel_departure"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
@@ -179,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="Travel Package:" />
+                            android:text="@string/travel_packages" />
 
                         <com.google.android.material.chip.ChipGroup
                             android:id="@+id/travel_packages"

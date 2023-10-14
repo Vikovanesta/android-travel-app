@@ -1,9 +1,11 @@
 package com.example.uts
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.uts.databinding.ActivityHomeBinding
@@ -18,13 +20,20 @@ class HomeActivity : AppCompatActivity() {
         StartActivityForResult()) {
                 result ->
 
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                val data = result.data
-//                val name = data?.getStringExtra(EXTRA_NAME)
-//                val address = data?.getStringExtra(EXTRA_ADDRESS)
-//
-//                binding.txtName.text = "Hello $name di $address"
-//            }
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                val trainClass = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAIN_CLASS)
+                val trainDeparture = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DEPARTURE)
+                val trainDestination = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DESTINATION)
+                val travelDate = data?.getStringExtra(InputTravelPlanActivity.EXTRA_TRAVEL_DATE)
+
+                with(binding) {
+                    textViewTrainClass.text = ": $trainClass"
+                    textViewTravelDeparture.text = ": $trainDeparture"
+                    textViewTravelDestination.text = ": $trainDestination"
+                    textViewTravelDate.text = ": $travelDate"
+                }
+            }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +49,16 @@ class HomeActivity : AppCompatActivity() {
                     text = "Package"
                 }
                 travelPackages.addView(androidChip)
+            }
+
+            // Go to input travel plan activity
+            btnAddTravelPlan.setOnClickListener{
+                val intentToInputTravelPlanActivity =
+                    Intent(
+                        this@HomeActivity,
+                        InputTravelPlanActivity::class.java
+                    )
+                launcher.launch(intentToInputTravelPlanActivity)
             }
         }
     }

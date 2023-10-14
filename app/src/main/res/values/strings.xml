@@ -16,4 +16,21 @@
     <string name="recent_travel_plan">Recent Travel Plan</string>
     <string name="train_class">Class</string>
     <string name="train">train</string>
+    <string name="departure">Departure</string>
+    <string name="date_dd_mm_yyyy">Date (dd/mm/yyyy)</string>
+    <string name="submit">Submit</string>
+    <string name="travel_packages">Travel Packages:</string>
+    <string name="add_travel_plan">Add Travel Plan</string>
+    <array name="train_classes">
+        <item>Executive</item>
+        <item>Business</item>
+        <item>Economy</item>
+    </array>
+    <array name="train_stations">
+        <item>Stasiun Gambir, DKI Jakarta</item>
+        <item>Stasiun Kalioso, Jawa Tengah</item>
+        <item>Stasiun Lempuyangan, D.I Yogyakarta</item>
+        <item>Stasiun Wates, D.I Yogyakarta</item>
+        <item>Stasiun Magetan, Jawa Timur</item>
+    </array>
 </resources>
