@@ -5,14 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.uts.databinding.ActivityHomeBinding
-import com.example.uts.databinding.ActivityRegisterBinding
-import com.google.android.material.datepicker.MaterialDatePicker
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -80,8 +77,6 @@ class HomeActivity : AppCompatActivity() {
                     )
                 launcher.launch(intentToInputTravelPlanActivity)
             }
-
-
 
             datePicker.init(
                 datePicker.year,

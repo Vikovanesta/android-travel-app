@@ -48,4 +48,5 @@
         <item>Stasiun Wates, D.I Yogyakarta</item>
         <item>Stasiun Magetan, Jawa Timur</item>
     </array>
+    <string name="nim">NIM</string>
 </resources>
