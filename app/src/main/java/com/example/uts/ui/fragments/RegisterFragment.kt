@@ -1,5 +1,7 @@
 package com.example.uts.ui.fragments
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
@@ -13,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.uts.R
 import com.example.uts.databinding.FragmentRegisterBinding
 import com.example.uts.model.User
+import com.example.uts.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
@@ -23,7 +26,7 @@ class RegisterFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val usersCollection = firestore.collection("users")
-    private val sharedPreferences = activity?.getSharedPreferences("Auth", android.content.Context.MODE_PRIVATE)
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,9 @@ class RegisterFragment : Fragment() {
     ): View {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val pager = activity?.findViewById<ViewPager2>(R.id.view_pager)
+
+        sharedPreferences = requireActivity()
+            .getSharedPreferences("Auth", android.content.Context.MODE_PRIVATE)
 
         with(binding) {
 
@@ -148,7 +154,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun saveUserToSharedPreferences(user: User) {
-        val editor = sharedPreferences?.edit()
+        val editor = sharedPreferences.edit()
         if (editor != null) {
             editor.putBoolean("isLoggedIn", true)
             editor.putString("userRole", user.role)
@@ -160,7 +166,9 @@ class RegisterFragment : Fragment() {
     }
 
     private fun goToMainActivity() {
-        // TODO: Go to main activity
-        Toast.makeText(requireContext(), "Go to main activity", Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        activity?.finish()
     }
 }

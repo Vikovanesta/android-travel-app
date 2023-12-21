@@ -1,6 +1,8 @@
 package com.example.uts.ui.fragments
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
@@ -15,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.uts.R
 import com.example.uts.databinding.FragmentLoginBinding
 import com.example.uts.model.User
+import com.example.uts.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,7 +27,7 @@ class LoginFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private val usersCollection = firestore.collection("users")
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val sharedPreferences = activity?.getSharedPreferences("Auth", Context.MODE_PRIVATE)
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,9 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val pager = activity?.findViewById<ViewPager2>(R.id.view_pager)
 
-        if (sharedPreferences?.getBoolean("isLoggedIn", false) == true) {
+        sharedPreferences = requireActivity().getSharedPreferences("Auth", Context.MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
             goToMainActivity()
         }
 
@@ -96,7 +101,7 @@ class LoginFragment : Fragment() {
                     val currentUser = firebaseAuth.currentUser
 
                     // Grab user data from firestore & save to shared preferences
-                    currentUser?.let {
+                    currentUser?.let { it ->
                         val uid = it.uid
                         usersCollection.document(uid).get()
                             .addOnSuccessListener { document ->
@@ -119,12 +124,14 @@ class LoginFragment : Fragment() {
     }
 
     private fun goToMainActivity() {
-        // TODO: Go to main activity
-        Toast.makeText(requireContext(), "Go to main activity", Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        activity?.finish()
     }
 
     private fun saveUserToSharedPreferences(user: User) {
-        val editor = sharedPreferences?.edit()
+        val editor = sharedPreferences.edit()
         if (editor != null) {
             editor.putBoolean("isLoggedIn", true)
             editor.putString("userRole", user.role)
