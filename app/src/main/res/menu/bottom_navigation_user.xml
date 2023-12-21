@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/baseline_dashboard_24"
+        android:title="@string/dashboard" />
+    <item
+        android:id="@+id/availableTravelFragment"
+        android:icon="@drawable/baseline_travel_explore_24"
+        android:title="Explore Travel" />
+    <item
+        android:id="@+id/travelHistoryFragment"
+        android:icon="@drawable/baseline_history_edu_24"
+        android:title=" Travel History" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile" />
+
+</menu>

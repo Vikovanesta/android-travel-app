@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation_user"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.uts.ui.fragments.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/availableTravelFragment"
+        android:name="com.example.uts.ui.fragments.AvailableTravelFragment"
+        android:label="fragment_available_travel"
+        tools:layout="@layout/fragment_available_travel" />
+    <fragment
+        android:id="@+id/travelHistoryFragment"
+        android:name="com.example.uts.ui.fragments.TravelHistoryFragment"
+        android:label="fragment_travel_history"
+        tools:layout="@layout/fragment_travel_history" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.uts.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

@@ -49,4 +49,8 @@
         <item>Stasiun Magetan, Jawa Timur</item>
     </array>
     <string name="nim">NIM</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="profile">Profile</string>
 </resources>
