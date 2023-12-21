@@ -2,21 +2,29 @@ package com.example.uts.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.example.uts.model.OrderPackageCrossRef
 import com.example.uts.model.Station
 import com.example.uts.model.Travel
+import com.example.uts.model.TravelOrder
 import com.example.uts.model.TravelPackage
 
 @Database(
     entities = [
         Travel::class,
         Station::class,
-        TravelPackage::class
+        TravelPackage::class,
+        TravelOrder::class,
+        OrderPackageCrossRef::class,
     ],
     version = 1,
     exportSchema = false
 )
 abstract class TravelDatabase: RoomDatabase() {
 abstract fun travelDao(): TravelDao?
+abstract fun stationDao(): StationDao?
+abstract fun packageDao(): PackageDao?
+abstract fun orderDao(): OrderDao?
+
     companion object {
         @Volatile
         private var INSTANCE: TravelDatabase? = null
@@ -26,7 +34,7 @@ abstract fun travelDao(): TravelDao?
             INSTANCE ?: getDatabase(context).also { INSTANCE = it }
         }
 
-        fun getDatabase(context: android.content.Context): TravelDatabase? {
+        private fun getDatabase(context: android.content.Context): TravelDatabase? {
             if (INSTANCE == null) {
                 synchronized(TravelDatabase::class.java) {
                     if (INSTANCE == null) {

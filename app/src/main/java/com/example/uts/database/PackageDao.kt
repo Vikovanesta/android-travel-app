@@ -17,7 +17,7 @@ interface PackageDao {
     @Query("SELECT * FROM travel_packages")
     fun getAllPackages(): List<TravelPackage>
 
-    @Query("SELECT * FROM travel_packages WHERE id = :id")
+    @Query("SELECT * FROM travel_packages WHERE travelPackageId = :id")
     fun getPackageById(id: String): TravelPackage
 
     @Query("SELECT * FROM travel_packages WHERE name LIKE :name")

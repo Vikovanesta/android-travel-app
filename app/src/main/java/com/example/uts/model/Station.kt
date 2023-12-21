@@ -9,6 +9,7 @@ data class Station(
     var id: String = "",
     var name: String = "",
     var code: String = "",
+    var district: String = "",
     var regency: String = "",
     var province: String = "",
 )

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "travel_packages")
 data class TravelPackage(
     @PrimaryKey(autoGenerate = false)
-    var id: String = "",
+    var travelPackageId: String = "",
     var name: String = "",
     var price: Int = 0,
 )

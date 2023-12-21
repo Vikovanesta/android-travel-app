@@ -22,21 +22,8 @@ data class Travel(
     var departureTime: String = "",
     var arrivalDate: String = "",
     var arrivalTime: String = "",
-    var duration: String = "",
+    var duration: Int = 0,
     var price: Int = 0,
-)
-
-@Entity(
-    tableName = "travel_package_cross_ref",
-    primaryKeys = ["travelId", "packageId"],
-    foreignKeys = [
-        ForeignKey(entity = Travel::class, parentColumns = ["id"], childColumns = ["travelId"]),
-        ForeignKey(entity = Package::class, parentColumns = ["packageId"], childColumns = ["packageId"])
-    ]
-)
-data class TravelPackageCrossRef(
-    val travelId: Int,
-    val packageId: Int,
 )
 
 data class TravelWithAllFields(
@@ -53,11 +40,4 @@ data class TravelWithAllFields(
         entityColumn = "id"
     )
     val arrivalStation: Station,
-
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "packageId",
-        associateBy = Junction(TravelPackageCrossRef::class)
-    )
-    val packages: List<Package>
 )
