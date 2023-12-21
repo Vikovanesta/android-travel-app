@@ -23,4 +23,9 @@ object DateTimeUtil {
     fun parseStringToTime(timeString: String): Time {
         return Time.valueOf(timeString)
     }
+
+    fun getCurrentTime(): Time {
+        val currentTime = System.currentTimeMillis()
+        return Time(currentTime)
+    }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingVertical="8dp"
-    android:paddingHorizontal="24dp"
+    android:paddingHorizontal="20dp"
     tools:context=".ui.fragments.ExploreTravelFragment">
 
     <androidx.recyclerview.widget.RecyclerView

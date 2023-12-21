@@ -122,30 +122,16 @@
 
 
         <TextView
-            android:id="@+id/txt_price"
+            android:id="@+id/txt_order_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Rp 40.000,-"
+            android:text="19 December 2023 21:44"
             android:textColor="@color/secondary"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_layout_arrival" />
-
-
-        <Button
-            android:id="@+id/btn_order"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/rounded_btn"
-            android:text="Order"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/secondary"
-            app:layout_constraintTop_toBottomOf="@id/txt_price"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

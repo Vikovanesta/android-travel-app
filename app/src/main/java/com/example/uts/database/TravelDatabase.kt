@@ -3,19 +3,13 @@ package com.example.uts.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.uts.model.OrderPackageCrossRef
 import com.example.uts.model.Station
 import com.example.uts.model.Travel
-import com.example.uts.model.TravelOrder
-import com.example.uts.model.TravelPackage
 
 @Database(
     entities = [
         Travel::class,
         Station::class,
-        TravelPackage::class,
-        TravelOrder::class,
-        OrderPackageCrossRef::class,
     ],
     version = 1,
     exportSchema = false
@@ -24,8 +18,6 @@ import com.example.uts.model.TravelPackage
 abstract class TravelDatabase: RoomDatabase() {
 abstract fun travelDao(): TravelDao?
 abstract fun stationDao(): StationDao?
-abstract fun packageDao(): PackageDao?
-abstract fun orderDao(): OrderDao?
 
     companion object {
         @Volatile

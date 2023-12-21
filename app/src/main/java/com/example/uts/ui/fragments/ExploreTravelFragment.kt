@@ -36,7 +36,33 @@ class ExploreTravelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        setCurrentUserData()
+        getAllTravels()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupRecyclerView() {
+        with(binding) {
+            rvExploreTravel.apply {
+                adapter = travelAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
+    }
+
+    private fun setCurrentUserData() {
+        val sharedPreferences = requireActivity().getSharedPreferences("Auth", 0)
+        val userRole = sharedPreferences.getString("userRole", "")!!
+        val userId = sharedPreferences.getString("userId", "")!!
+        travelAdapter.setUserRole(userRole)
+        travelAdapter.setUserId(userId)
+    }
+
+    private fun getAllTravels() {
         travelCollection
             .orderBy("departureDate")
             .orderBy("departureTime")
@@ -57,20 +83,6 @@ class ExploreTravelFragment : Fragment() {
                         }
                     }
                 }
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun setupRecyclerView() {
-        with(binding) {
-            rvExploreTravel.apply {
-                adapter = travelAdapter
-                layoutManager = LinearLayoutManager(requireContext())
-            }
         }
     }
 }

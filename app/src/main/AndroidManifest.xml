@@ -28,9 +28,6 @@
             android:name=".InputTravelPlanActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.AuthActivity"
             android:exported="true">
         </activity>
