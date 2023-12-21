@@ -134,6 +134,7 @@ class LoginFragment : Fragment() {
         val editor = sharedPreferences.edit()
         if (editor != null) {
             editor.putBoolean("isLoggedIn", true)
+            editor.putString("userId", user.id)
             editor.putString("userRole", user.role)
             editor.putString("username", user.username)
             editor.putString("userEmail", user.email)

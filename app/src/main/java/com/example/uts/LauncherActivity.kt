@@ -13,9 +13,11 @@ class LauncherActivity : AppCompatActivity() {
         if (getSharedPreferences("Auth", MODE_PRIVATE).getBoolean("isLoggedIn", false)) {
             Log.d("LauncherActivity", "onCreate: isLoggedIn")
             startActivity(android.content.Intent(this, MainActivity::class.java))
+            this.finish()
         } else {
             Log.d("LauncherActivity", "onCreate: isNotLoggedIn")
             startActivity(android.content.Intent(this, AuthActivity::class.java))
+            this.finish()
         }
     }
 }

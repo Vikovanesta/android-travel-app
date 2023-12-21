@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/availableTravelFragment"
-        android:name="com.example.uts.ui.fragments.AvailableTravelFragment"
+        android:name="com.example.uts.ui.fragments.ExploreTravelFragment"
         android:label="fragment_available_travel"
-        tools:layout="@layout/fragment_available_travel" />
+        tools:layout="@layout/fragment_explore_travel" />
     <fragment
         android:id="@+id/travelHistoryFragment"
         android:name="com.example.uts.ui.fragments.TravelHistoryFragment"

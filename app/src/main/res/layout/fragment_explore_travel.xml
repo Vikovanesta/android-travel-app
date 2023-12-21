@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.AvailableTravelFragment">
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="24dp"
+    tools:context=".ui.fragments.ExploreTravelFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_explore_travel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:itemCount="5"
+        tools:listitem="@layout/item_travel"/>
 
 </FrameLayout>
