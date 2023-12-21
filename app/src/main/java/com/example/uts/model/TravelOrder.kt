@@ -6,6 +6,10 @@ import androidx.room.ForeignKey
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.example.uts.util.DateTimeUtil
+import com.google.firebase.firestore.DocumentSnapshot
+import java.sql.Time
+import java.util.Date
 
 @Entity(
     tableName = "travel_orders",
@@ -19,6 +23,8 @@ data class TravelOrder(
     var travelOrderId: String,
     var travelId: String,
     var userId: String,
+    var date: Date,
+    var time: Time,
     var totalPrice: Int,
 )
 
@@ -51,3 +57,20 @@ data class TravelOrderWithAllFields(
     )
     val packages: List<TravelPackage>,
 )
+
+fun DocumentSnapshot.toTravelOrder(): TravelOrder {
+    val dateStr = getString("date") ?: ""
+    val timeStr = getString("time") ?: ""
+
+    val date = DateTimeUtil.parseStringToDate(dateStr)
+    val time = DateTimeUtil.parseStringToTime(timeStr)
+
+    return TravelOrder(
+        travelOrderId = getString("travelOrderId") ?: "",
+        travelId = getString("travelId") ?: "",
+        userId = getString("userId") ?: "",
+        date = date,
+        time = time,
+        totalPrice = getLong("totalPrice")?.toInt() ?: 0,
+    )
+}

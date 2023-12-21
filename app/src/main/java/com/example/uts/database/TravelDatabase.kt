@@ -2,6 +2,7 @@ package com.example.uts.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.uts.model.OrderPackageCrossRef
 import com.example.uts.model.Station
 import com.example.uts.model.Travel
@@ -19,6 +20,7 @@ import com.example.uts.model.TravelPackage
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class TravelDatabase: RoomDatabase() {
 abstract fun travelDao(): TravelDao?
 abstract fun stationDao(): StationDao?

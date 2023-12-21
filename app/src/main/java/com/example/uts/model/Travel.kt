@@ -6,7 +6,11 @@ import androidx.room.ForeignKey
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import com.example.uts.util.DateTimeUtil
+import com.google.firebase.firestore.DocumentSnapshot
 import java.lang.Package
+import java.sql.Time
+import java.util.Date
 
 @Entity(tableName = "travels")
 data class Travel(
@@ -18,10 +22,10 @@ data class Travel(
     var subClass: String = "",
     var originStationId: String = "",
     var arrivalStationId: String = "",
-    var departureDate: String = "",
-    var departureTime: String = "",
-    var arrivalDate: String = "",
-    var arrivalTime: String = "",
+    var departureDate: Date = Date(),
+    var departureTime: Time = Time(0),
+    var arrivalDate: Date = Date(),
+    var arrivalTime: Time = Time(0),
     var duration: Int = 0,
     var price: Int = 0,
 )
@@ -41,3 +45,31 @@ data class TravelWithAllFields(
     )
     val arrivalStation: Station,
 )
+
+fun DocumentSnapshot.toTravel(): Travel {
+    val departureDateStr = getString("departureDate") ?: ""
+    val departureTimeStr = getString("departureTime") ?: ""
+    val arrivalDateStr = getString("arrivalDate") ?: ""
+    val arrivalTimeStr = getString("arrivalTime") ?: ""
+
+    val departureDate = DateTimeUtil.parseStringToDate(departureDateStr)
+    val departureTime = DateTimeUtil.parseStringToTime(departureTimeStr)
+    val arrivalDate = DateTimeUtil.parseStringToDate(arrivalDateStr)
+    val arrivalTime = DateTimeUtil.parseStringToTime(arrivalTimeStr)
+
+    return Travel(
+        id = getString("id") ?: "",
+        trainName = getString("trainName") ?: "",
+        trainNumber = getString("trainNumber") ?: "",
+        wagonClass = getString("wagonClass") ?: "",
+        subClass = getString("subClass") ?: "",
+        originStationId = getString("originStationId") ?: "",
+        arrivalStationId = getString("arrivalStationId") ?: "",
+        departureDate = departureDate,
+        departureTime = departureTime,
+        arrivalDate = arrivalDate,
+        arrivalTime = arrivalTime,
+        duration = getLong("duration")?.toInt() ?: 0,
+        price = getLong("price")?.toInt() ?: 0,
+    )
+}
