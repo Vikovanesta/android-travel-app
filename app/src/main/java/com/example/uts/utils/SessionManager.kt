@@ -79,7 +79,7 @@ class SessionManager private constructor(context: Context) {
         return sharedPreferences.getString(KEY_USER_NIM, "")!!
     }
 
-    fun clear() {
+    fun logout() {
         sharedPreferences.edit().clear().apply()
     }
 }

@@ -54,4 +54,5 @@
     <string name="dashboard">Dashboard</string>
     <string name="profile">Profile</string>
     <string name="search_travel_plan">Search Travel Plan</string>
+    <string name="logout">Logout</string>
 </resources>
