@@ -43,24 +43,7 @@ class ItemTravelAdapter(private val action: (action: String, travelId: String) -
 
                     if (userRole == "user") {
                         btnOrder.setOnClickListener {
-                            val firestore = FirebaseFirestore.getInstance()
-                            val travelOrderCollection = firestore.collection("travelOrders")
-
-                            val travelOrder = hashMapOf(
-                                "travelId" to travel.travel.id,
-                                "userId" to userId,
-                                "date" to SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date()),
-                                "time" to SimpleDateFormat("HH:mm:ss", Locale.US).format(Time(System.currentTimeMillis())),
-                                "totalPrice" to travel.travel.price
-                            )
-
-                            travelOrderCollection.add(travelOrder).addOnSuccessListener {
-                                travelOrderCollection.document(it.id).update("travelOrderId", it.id)
-                            }.addOnSuccessListener {
-                                Toast.makeText(itemView.context, "Order success", Toast.LENGTH_SHORT).show()
-                            }.addOnFailureListener {
-                                Toast.makeText(itemView.context, "Order failed", Toast.LENGTH_SHORT).show()
-                            }
+                            action("orderTravel", travel.travel.id)
                         }
                     }
 
@@ -112,5 +95,9 @@ class ItemTravelAdapter(private val action: (action: String, travelId: String) -
     fun setUserId(userId: String) {
         this.userId = userId
         notifyDataSetChanged()
+    }
+
+    fun getTravelPrice(travelId: String): String? {
+        return travelList.find { it.travel.id == travelId }?.travel?.price.toString()
     }
 }
