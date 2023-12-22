@@ -22,16 +22,16 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/text_view_no_travel_plan"
+                android:id="@+id/txt_welcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="@string/you_have_no_travel_plan_yet"
+                android:text="Welcome!"
                 android:textAlignment="center"
-                android:textSize="24sp" />
+                android:textSize="42sp" />
 
             <Button
                 android:id="@+id/btn_add_travel_plan"
@@ -44,7 +44,8 @@
                 android:text="@string/search_travel_plan"
                 android:textSize="16sp"
                 app:backgroundTint="#4CAF50"
-                android:drawableEnd="@drawable/ic_add" />
+                android:drawableEnd="@drawable/ic_add"
+                android:visibility="gone"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/travel_plan_card"
