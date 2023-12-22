@@ -17,6 +17,7 @@ import com.example.uts.model.TravelOrderWithAllFields
 import com.example.uts.model.TravelWithAllFields
 import com.example.uts.model.toTravel
 import com.example.uts.model.toTravelOrder
+import com.example.uts.utils.SessionManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -28,7 +29,7 @@ class TravelHistoryFragment : Fragment() {
     private val orderCollection = firestore.collection("travelOrders")
     private val travelCollection = firestore.collection("travels")
     private val stationCollection = firestore.collection("stations")
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +47,8 @@ class TravelHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
 
-        sharedPreferences = requireActivity().getSharedPreferences("Auth", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getString("userId", "")!!
-        getAllOrdersById(userId)
+        sessionManager = SessionManager.getInstance(requireContext())
+        getAllOrdersById(sessionManager.getUserId())
     }
 
     override fun onDestroyView() {

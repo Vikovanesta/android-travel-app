@@ -1,13 +1,12 @@
 package com.example.uts.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.uts.databinding.ItemOrderBinding
 import com.example.uts.model.TravelOrderWithAllFields
-import com.example.uts.util.DateTimeUtil
+import com.example.uts.utils.DateTimeUtil
 
 class ItemOrderAdapter(): RecyclerView.Adapter<ItemOrderAdapter.ItemOrderViewHolder>() {
     private var orderList: List<TravelOrderWithAllFields> = listOf()

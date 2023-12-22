@@ -11,6 +11,7 @@ import com.example.uts.databinding.FragmentExploreTravelBinding
 import com.example.uts.model.Station
 import com.example.uts.model.TravelWithAllFields
 import com.example.uts.model.toTravel
+import com.example.uts.utils.SessionManager
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ExploreTravelFragment : Fragment() {
@@ -20,6 +21,7 @@ class ExploreTravelFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private val travelCollection = firestore.collection("travels")
     private val stationCollection = firestore.collection("stations")
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,9 @@ class ExploreTravelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sessionManager = SessionManager.getInstance(requireContext())
+
         setupRecyclerView()
         setCurrentUserData()
         getAllTravels()
@@ -55,11 +60,8 @@ class ExploreTravelFragment : Fragment() {
     }
 
     private fun setCurrentUserData() {
-        val sharedPreferences = requireActivity().getSharedPreferences("Auth", 0)
-        val userRole = sharedPreferences.getString("userRole", "")!!
-        val userId = sharedPreferences.getString("userId", "")!!
-        travelAdapter.setUserRole(userRole)
-        travelAdapter.setUserId(userId)
+        travelAdapter.setUserRole(sessionManager.getUserRole())
+        travelAdapter.setUserId(sessionManager.getUserId())
     }
 
     private fun getAllTravels() {

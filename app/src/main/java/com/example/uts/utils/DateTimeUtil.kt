@@ -1,4 +1,4 @@
-package com.example.uts.util
+package com.example.uts.utils
 
 import java.sql.Time
 import java.text.SimpleDateFormat

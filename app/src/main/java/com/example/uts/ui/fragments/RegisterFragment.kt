@@ -16,6 +16,7 @@ import com.example.uts.R
 import com.example.uts.databinding.FragmentRegisterBinding
 import com.example.uts.model.User
 import com.example.uts.ui.MainActivity
+import com.example.uts.utils.SessionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,7 +27,7 @@ class RegisterFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val usersCollection = firestore.collection("users")
-    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +40,7 @@ class RegisterFragment : Fragment() {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val pager = activity?.findViewById<ViewPager2>(R.id.view_pager)
 
-        sharedPreferences = requireActivity()
-            .getSharedPreferences("Auth", android.content.Context.MODE_PRIVATE)
+        sessionManager = SessionManager.getInstance(requireContext())
 
         with(binding) {
 
@@ -154,16 +154,12 @@ class RegisterFragment : Fragment() {
     }
 
     private fun saveUserToSharedPreferences(user: User) {
-        val editor = sharedPreferences.edit()
-        if (editor != null) {
-            editor.putBoolean("isLoggedIn", true)
-            editor.putString("userId", user.id)
-            editor.putString("userRole", user.role)
-            editor.putString("username", user.username)
-            editor.putString("userEmail", user.email)
-            editor.putString("userNim", user.nim)
-            editor.apply()
-        }
+        sessionManager.setLoggedIn(true)
+        sessionManager.setUserId(user.id)
+        sessionManager.setUserRole(user.role)
+        sessionManager.setUsername(user.username)
+        sessionManager.setUserEmail(user.email)
+        sessionManager.setUserNim(user.nim)
     }
 
     private fun goToMainActivity() {

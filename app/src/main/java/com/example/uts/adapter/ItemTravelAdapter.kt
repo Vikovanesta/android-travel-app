@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.uts.databinding.ItemTravelBinding
 import com.example.uts.model.TravelWithAllFields
-import com.example.uts.util.DateTimeUtil
+import com.example.uts.utils.DateTimeUtil
 import com.google.firebase.firestore.FirebaseFirestore
 import java.sql.Time
 import java.text.NumberFormat
