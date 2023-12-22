@@ -33,14 +33,14 @@ class InputTravelPlanActivity : AppCompatActivity(),
         with(binding) {
 
             btnShowCalendar.setOnClickListener {
-                val datePicker = DatePicker()
+                val datePicker = com.example.uts.ui.dialogs.DatePicker()
                 datePicker.show(supportFragmentManager, "date picker")
             }
 
             val adapterTrainClasses = ArrayAdapter<String>(
                 this@InputTravelPlanActivity,
                 android.R.layout.simple_spinner_item,
-                resources.getStringArray(R.array.train_classes)
+                resources.getStringArray(R.array.wagon_classes)
             )
             spinnerTrainClasses.adapter = adapterTrainClasses
 

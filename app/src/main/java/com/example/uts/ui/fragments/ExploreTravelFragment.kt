@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.uts.adapter.ItemTravelAdapter
 import com.example.uts.databinding.FragmentExploreTravelBinding
@@ -45,9 +46,7 @@ class ExploreTravelFragment : Fragment() {
         getAllTravels()
 
         if (sessionManager.getUserRole() == "admin") {
-            with(binding) {
-                btnAddTravel.visibility = View.VISIBLE
-            }
+            setupAddTravelButton()
         }
     }
 
@@ -91,6 +90,18 @@ class ExploreTravelFragment : Fragment() {
                         }
                     }
                 }
+        }
+    }
+
+    private fun setupAddTravelButton() {
+        with(binding) {
+            btnAddTravel.visibility = View.VISIBLE
+
+            btnAddTravel.setOnClickListener {
+                val action = ExploreTravelFragmentDirections
+                    .actionExploreTravelFragmentToCreateTravelFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 }

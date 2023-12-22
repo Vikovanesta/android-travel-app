@@ -19,10 +19,19 @@
         android:id="@+id/exploreTravelFragment"
         android:name="com.example.uts.ui.fragments.ExploreTravelFragment"
         android:label="fragment_explore_travel"
-        tools:layout="@layout/fragment_explore_travel" />
+        tools:layout="@layout/fragment_explore_travel" >
+        <action
+            android:id="@+id/action_exploreTravelFragment_to_createTravelFragment"
+            app:destination="@id/createTravelFragment" />
+    </fragment>
     <fragment
         android:id="@+id/stationListFragment"
         android:name="com.example.uts.ui.fragments.StationListFragment"
         android:label="fragment_station_list"
         tools:layout="@layout/fragment_station_list" />
+    <fragment
+        android:id="@+id/createTravelFragment"
+        android:name="com.example.uts.ui.fragments.CreateTravelFragment"
+        android:label="fragment_create_travel"
+        tools:layout="@layout/fragment_create_travel" />
 </navigation>

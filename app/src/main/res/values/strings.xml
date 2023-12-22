@@ -36,7 +36,7 @@
     <string name="rp0_00">Rp0,00</string>
     <string name="add_new_travel_plan">Add New Travel Plan</string>
     <string name="you_have_no_travel_plan_yet">You have no travel plan yet</string>
-    <array name="train_classes">
+    <array name="wagon_classes">
         <item>Executive</item>
         <item>Business</item>
         <item>Economy</item>
