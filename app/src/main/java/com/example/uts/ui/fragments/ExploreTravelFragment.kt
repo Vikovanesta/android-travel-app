@@ -5,8 +5,10 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,24 +16,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.uts.LauncherActivity
 import com.example.uts.R
 import com.example.uts.adapter.ItemTravelAdapter
+import com.example.uts.database.StationDao
+import com.example.uts.database.TravelDao
+import com.example.uts.database.TravelDatabase
 import com.example.uts.databinding.FragmentExploreTravelBinding
 import com.example.uts.model.Station
 import com.example.uts.model.TravelWithAllFields
 import com.example.uts.model.toTravel
-import com.example.uts.notification.NotificationReceiver
 import com.example.uts.ui.dialogs.ConfirmationDialog
 import com.example.uts.utils.SessionManager
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.AbstractExecutorService
 
 class ExploreTravelFragment : Fragment() {
     private var _binding: FragmentExploreTravelBinding? = null
@@ -50,6 +57,7 @@ class ExploreTravelFragment : Fragment() {
                     "Are you sure you want to delete this travel?",
                 ) {
                     travelCollection.document(travelId).delete()
+                    travelDao.deleteTravelById(travelId)
                     getAllTravels()
                 }
                 deleteConfirmationDialog.show(parentFragmentManager, "deleteConfirmationDialog")
@@ -71,7 +79,11 @@ class ExploreTravelFragment : Fragment() {
     private val travelOrderCollection = firestore.collection("travelOrders")
     private val channelId = "TRAVEL_APP"
     private val notificationId = 0
+    private lateinit var travelDao: TravelDao
+    private lateinit var stationDao: StationDao
+    private lateinit var executorService: AbstractExecutorService
     private lateinit var sessionManager: SessionManager
+    private lateinit var connectivityManager : ConnectivityManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,13 +94,12 @@ class ExploreTravelFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExploreTravelBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         sessionManager = SessionManager.getInstance(requireContext())
+        val db = TravelDatabase.getDatabase(requireContext())
+        travelDao = db!!.travelDao()!!
+        stationDao = db.stationDao()!!
+        executorService = java.util.concurrent.Executors.newSingleThreadExecutor() as AbstractExecutorService
+        connectivityManager = requireContext().getSystemService(ConnectivityManager::class.java)
 
         setupRecyclerView()
         setCurrentUserData()
@@ -97,6 +108,14 @@ class ExploreTravelFragment : Fragment() {
         if (sessionManager.getUserRole() == "admin") {
             setupAddTravelButton()
         }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
     override fun onDestroyView() {
@@ -119,27 +138,51 @@ class ExploreTravelFragment : Fragment() {
     }
 
     private fun getAllTravels() {
-        travelCollection
-            .orderBy("departureDate")
-            .orderBy("departureTime")
-            .get().addOnSuccessListener { result ->
-                val travelList = result.documents.map { document ->
-                    document.toTravel()
-                }
-                var originStation: Station
-                var arrivalStation: Station
-                val travelWithAllFieldsList: MutableList<TravelWithAllFields> = mutableListOf()
-                travelList.forEach { travel ->
-                    stationCollection.document(travel.originStationId).get().addOnSuccessListener { result ->
-                        originStation = result.toObject(Station::class.java)!!
-                        stationCollection.document(travel.arrivalStationId).get().addOnSuccessListener { result ->
-                            arrivalStation = result.toObject(Station::class.java)!!
-                            travelWithAllFieldsList.add(TravelWithAllFields(travel, originStation, arrivalStation))
-                            travelAdapter.setTravelList(travelWithAllFieldsList)
+        connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: android.net.Network) {
+                super.onAvailable(network)
+                travelCollection
+                    .orderBy("departureDate")
+                    .orderBy("departureTime")
+                    .get().addOnSuccessListener { result ->
+                        val travelList = result.documents.map { document ->
+                            document.toTravel()
+                        }
+                        var originStation: Station
+                        var arrivalStation: Station
+                        val travelWithAllFieldsList: MutableList<TravelWithAllFields> = mutableListOf()
+                        travelList.forEach { travel ->
+                            executorService.execute {
+                                travelDao.upsertTravel(travel)
+                            }
+                            stationCollection.document(travel.originStationId).get().addOnSuccessListener { result ->
+                                originStation = result.toObject(Station::class.java)!!
+                                stationCollection.document(travel.arrivalStationId).get().addOnSuccessListener { result ->
+                                    arrivalStation = result.toObject(Station::class.java)!!
+                                    travelWithAllFieldsList.add(TravelWithAllFields(travel, originStation, arrivalStation))
+                                    travelAdapter.setTravelList(travelWithAllFieldsList)
+                                }
+                            }
                         }
                     }
+            }
+
+            override fun onLost(network: android.net.Network) {
+                super.onLost(network)
+                Log.d("TAG", "onLost: ")
+                val travelWithAllFieldsList: MutableList<TravelWithAllFields> = mutableListOf()
+                travelDao.getAllTravels().observe(viewLifecycleOwner) {
+                    it.forEach { travel ->
+                        val originStation = stationDao.getStationById(travel.originStationId)
+                        val arrivalStation = stationDao.getStationById(travel.arrivalStationId)
+                        travelWithAllFieldsList.add(TravelWithAllFields(travel, originStation, arrivalStation))
+                        travelAdapter.setTravelList(travelWithAllFieldsList)
+                    }
                 }
-        }
+            }
+        })
+
+
     }
 
     private fun setupAddTravelButton() {
@@ -173,12 +216,10 @@ class ExploreTravelFragment : Fragment() {
             } else {
                 0
             }
-            Log.d("TAG", "flag: $flag")
 
             val intent = Intent(requireContext(), LauncherActivity::class.java)
                 .putExtra("MESSAGE", "Order success")
             val pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, flag)
-            Log.d("TAG", "pendingIntent: $pendingIntent")
 
             val notificationBuilder = NotificationCompat.Builder(requireContext(), channelId)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -187,19 +228,15 @@ class ExploreTravelFragment : Fragment() {
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
-            Log.d("TAG", "notifBuilder: $notificationBuilder")
 
             val nofificationManager = requireContext()
                 .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            Log.d("TAG", "notifManager: $nofificationManager")
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val notificationChannel = NotificationChannel(channelId, "Travel App", NotificationManager.IMPORTANCE_DEFAULT)
-                Log.d("TAG", "notifChannel: $notificationChannel")
                 with(nofificationManager) {
                     createNotificationChannel(notificationChannel)
                     notify(notificationId, notificationBuilder.build())
-                    Log.d("TAG", "notif: idk bruh")
                 }
             } else {
                 nofificationManager.notify(notificationId, notificationBuilder.build())

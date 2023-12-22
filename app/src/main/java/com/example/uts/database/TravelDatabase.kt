@@ -28,7 +28,7 @@ abstract fun stationDao(): StationDao?
             INSTANCE ?: getDatabase(context).also { INSTANCE = it }
         }
 
-        private fun getDatabase(context: android.content.Context): TravelDatabase? {
+        fun getDatabase(context: android.content.Context): TravelDatabase? {
             if (INSTANCE == null) {
                 synchronized(TravelDatabase::class.java) {
                     if (INSTANCE == null) {

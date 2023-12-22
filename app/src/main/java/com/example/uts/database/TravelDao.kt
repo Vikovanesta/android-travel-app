@@ -1,5 +1,6 @@
 package com.example.uts.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
@@ -15,8 +16,11 @@ interface TravelDao {
     @Delete
     fun deleteTravel(vararg travel: Travel)
 
+    @Query("DELETE FROM travels WHERE id = :id")
+    fun deleteTravelById(id: String)
+
     @Query("SELECT * FROM travels")
-    fun getAllTravels(): List<Travel>
+    fun getAllTravels(): LiveData<List<Travel>>
 
     @Query("SELECT * FROM travels WHERE id = :id")
     fun getTravelById(id: String): Travel

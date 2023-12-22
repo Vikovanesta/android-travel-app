@@ -1,5 +1,6 @@
 package com.example.uts.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
@@ -15,7 +16,7 @@ interface StationDao {
     fun deleteStation(vararg stations: Station)
 
     @Query("SELECT * FROM stations")
-    fun getAllStations(): List<Station>
+    fun getAllStations(): LiveData<MutableList<Station>>
 
     @Query("SELECT * FROM stations WHERE id = :id")
     fun getStationById(id: String): Station
