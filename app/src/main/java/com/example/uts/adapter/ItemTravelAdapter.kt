@@ -41,25 +41,31 @@ class ItemTravelAdapter() :
                     txtOriginStation.text = "${travel.originStation.name} (${travel.originStation.code})"
                     txtArrivalStation.text = "${travel.arrivalStation.name} (${travel.arrivalStation.code})"
 
-                    btnOrder.setOnClickListener {
-                        val firestore = FirebaseFirestore.getInstance()
-                        val travelOrderCollection = firestore.collection("travelOrders")
+                    if (userRole == "user") {
+                        btnOrder.setOnClickListener {
+                            val firestore = FirebaseFirestore.getInstance()
+                            val travelOrderCollection = firestore.collection("travelOrders")
 
-                        val travelOrder = hashMapOf(
-                            "travelId" to travel.travel.id,
-                            "userId" to userId,
-                            "date" to SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date()),
-                            "time" to SimpleDateFormat("HH:mm:ss", Locale.US).format(Time(System.currentTimeMillis())),
-                            "totalPrice" to travel.travel.price
-                        )
+                            val travelOrder = hashMapOf(
+                                "travelId" to travel.travel.id,
+                                "userId" to userId,
+                                "date" to SimpleDateFormat("yyyy-MM-dd", Locale.US).format(Date()),
+                                "time" to SimpleDateFormat("HH:mm:ss", Locale.US).format(Time(System.currentTimeMillis())),
+                                "totalPrice" to travel.travel.price
+                            )
 
-                        travelOrderCollection.add(travelOrder).addOnSuccessListener {
-                            travelOrderCollection.document(it.id).update("travelOrderId", it.id)
-                        }.addOnSuccessListener {
-                            Toast.makeText(itemView.context, "Order success", Toast.LENGTH_SHORT).show()
-                        }.addOnFailureListener {
-                            Toast.makeText(itemView.context, "Order failed", Toast.LENGTH_SHORT).show()
+                            travelOrderCollection.add(travelOrder).addOnSuccessListener {
+                                travelOrderCollection.document(it.id).update("travelOrderId", it.id)
+                            }.addOnSuccessListener {
+                                Toast.makeText(itemView.context, "Order success", Toast.LENGTH_SHORT).show()
+                            }.addOnFailureListener {
+                                Toast.makeText(itemView.context, "Order failed", Toast.LENGTH_SHORT).show()
+                            }
                         }
+                    }
+
+                    if (userRole == "admin") {
+                        btnOrder.visibility = android.view.View.GONE
                     }
                 }
             }

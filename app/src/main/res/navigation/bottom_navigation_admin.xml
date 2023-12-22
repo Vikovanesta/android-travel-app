@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation_admin"
+    app:startDestination="@id/dashboardAdminFragment">
+
+    <fragment
+        android:id="@+id/dashboardAdminFragment"
+        android:name="com.example.uts.ui.fragments.DashboardAdminFragment"
+        android:label="fragment_dashboard_admin"
+        tools:layout="@layout/fragment_dashboard_admin" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.uts.ui.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/exploreTravelFragment"
+        android:name="com.example.uts.ui.fragments.ExploreTravelFragment"
+        android:label="fragment_explore_travel"
+        tools:layout="@layout/fragment_explore_travel" />
+    <fragment
+        android:id="@+id/stationListFragment"
+        android:name="com.example.uts.ui.fragments.StationListFragment"
+        android:label="fragment_station_list"
+        tools:layout="@layout/fragment_station_list" />
+</navigation>

@@ -43,6 +43,12 @@ class ExploreTravelFragment : Fragment() {
         setupRecyclerView()
         setCurrentUserData()
         getAllTravels()
+
+        if (sessionManager.getUserRole() == "admin") {
+            with(binding) {
+                btnAddTravel.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onDestroyView() {

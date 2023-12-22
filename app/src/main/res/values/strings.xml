@@ -49,10 +49,11 @@
         <item>Stasiun Magetan, Jawa Timur</item>
     </array>
     <string name="nim">NIM</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dashboard">Dashboard</string>
     <string name="profile">Profile</string>
     <string name="search_travel_plan">Search Travel Plan</string>
     <string name="logout">Logout</string>
+    <string name="travel_list">Travel List</string>
+    <string name="station_list">Station List</string>
 </resources>

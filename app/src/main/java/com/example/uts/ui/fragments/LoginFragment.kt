@@ -21,6 +21,7 @@ import com.example.uts.ui.MainActivity
 import com.example.uts.utils.SessionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.runBlocking
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -108,15 +109,19 @@ class LoginFragment : Fragment() {
                             .addOnSuccessListener { document ->
                                 val user = document.toObject(User::class.java)
                                 user?.let {
-                                    saveUserToSharedPreferences(it)
+                                        saveUserToSharedPreferences(it)
+                                        goToMainActivity()
+                                        Log.d("Login", "Login success")
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Login success",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                 }
                             }
                     }
 
-                    Log.d("Login", "Login success")
-                    Toast.makeText(requireContext(), "Login success", Toast.LENGTH_SHORT).show()
 
-                    goToMainActivity()
                 } else {
                     Log.d("Login", "Login failed")
                     Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
