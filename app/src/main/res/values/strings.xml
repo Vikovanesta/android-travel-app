@@ -56,4 +56,6 @@
     <string name="logout">Logout</string>
     <string name="travel_list">Travel List</string>
     <string name="station_list">Station List</string>
+    <string name="delete_button">Delete Button</string>
+    <string name="edit_button">Edit Button</string>
 </resources>

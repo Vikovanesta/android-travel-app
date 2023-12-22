@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_exploreTravelFragment_to_createTravelFragment"
             app:destination="@id/createTravelFragment" />
+        <action
+            android:id="@+id/action_exploreTravelFragment_to_editTravelFragment"
+            app:destination="@id/editTravelFragment" />
     </fragment>
     <fragment
         android:id="@+id/stationListFragment"
@@ -34,4 +37,13 @@
         android:name="com.example.uts.ui.fragments.CreateTravelFragment"
         android:label="fragment_create_travel"
         tools:layout="@layout/fragment_create_travel" />
+    <fragment
+        android:id="@+id/editTravelFragment"
+        android:name="com.example.uts.ui.fragments.EditTravelFragment"
+        android:label="fragment_edit_travel"
+        tools:layout="@layout/fragment_edit_travel" >
+        <argument
+            android:name="travelId"
+            app:argType="string" />
+    </fragment>
 </navigation>

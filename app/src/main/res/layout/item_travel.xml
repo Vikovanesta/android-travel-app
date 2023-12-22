@@ -11,15 +11,41 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <ImageView
+            android:id="@+id/btn_delete"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            android:src="@drawable/baseline_delete_outline_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/delete_button"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/btn_edit"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="20dp"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            android:src="@drawable/baseline_edit_24"
+            app:layout_constraintStart_toEndOf="@+id/btn_delete"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/edit_button"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/txt_train_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="200dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Singasari 103"
             android:textColor="@color/black"
             android:textSize="18sp"
-
+            android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

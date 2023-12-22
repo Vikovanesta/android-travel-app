@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".ui.fragments.CreateTravelFragment">
+    tools:context=".ui.fragments.EditTravelFragment">
 
     <LinearLayout
         android:id="@+id/input_form_travel"
@@ -14,12 +14,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txt_add_new_travel_plan"
+            android:id="@+id/txt_edit_travel_plan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/add_new_travel_plan"
+            android:text="Edit Travel Plan"
             android:textAlignment="center"
             android:textSize="28sp" />
 
@@ -283,13 +283,13 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add"
+            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
             android:background="@drawable/rounded_btn"
             android:fontFamily="@font/poppins"
-            android:text="ADD"
+            android:text="SAVE"
             android:textSize="16sp"
             app:backgroundTint="@color/secondary" />
     </LinearLayout>

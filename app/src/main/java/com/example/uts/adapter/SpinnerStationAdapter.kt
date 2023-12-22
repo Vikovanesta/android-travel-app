@@ -25,6 +25,10 @@ class SpinnerStationAdapter(
         return stations[position].id.hashCode().toLong()
     }
 
+    fun getPosition(stationId: String): Int {
+        return stations.indexOfFirst { it.id == stationId }
+    }
+
     @SuppressLint("SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(

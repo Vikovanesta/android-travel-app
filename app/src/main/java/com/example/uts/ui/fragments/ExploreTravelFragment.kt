@@ -12,13 +12,33 @@ import com.example.uts.databinding.FragmentExploreTravelBinding
 import com.example.uts.model.Station
 import com.example.uts.model.TravelWithAllFields
 import com.example.uts.model.toTravel
+import com.example.uts.ui.dialogs.ConfirmationDialog
 import com.example.uts.utils.SessionManager
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ExploreTravelFragment : Fragment() {
     private var _binding: FragmentExploreTravelBinding? = null
     private val binding get() = _binding!!
-    private val travelAdapter = ItemTravelAdapter()
+    private val travelAdapter = ItemTravelAdapter { action, travelId ->
+        when (action) {
+            "openEditTravelFragment" -> {
+                val action = ExploreTravelFragmentDirections
+                    .actionExploreTravelFragmentToEditTravelFragment(travelId)
+                findNavController().navigate(action)
+            }
+
+            "openConfirmationDialog" -> {
+                val deleteConfirmationDialog = ConfirmationDialog(
+                    "Delete Travel",
+                    "Are you sure you want to delete this travel?",
+                ) {
+                    travelCollection.document(travelId).delete()
+                    getAllTravels()
+                }
+                deleteConfirmationDialog.show(parentFragmentManager, "deleteConfirmationDialog")
+            }
+        }
+    }
     private val firestore = FirebaseFirestore.getInstance()
     private val travelCollection = firestore.collection("travels")
     private val stationCollection = firestore.collection("stations")

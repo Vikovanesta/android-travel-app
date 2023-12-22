@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class ItemTravelAdapter() :
+class ItemTravelAdapter(private val action: (action: String, travelId: String) -> Unit) :
     RecyclerView.Adapter<ItemTravelAdapter.ItemTravelViewHolder>() {
 
     private var travelList: List<TravelWithAllFields> = listOf()
@@ -66,6 +66,15 @@ class ItemTravelAdapter() :
 
                     if (userRole == "admin") {
                         btnOrder.visibility = android.view.View.GONE
+                        btnDelete.visibility = android.view.View.VISIBLE
+                        btnEdit.visibility = android.view.View.VISIBLE
+
+                        btnDelete.setOnClickListener {
+                            action("openConfirmationDialog", travel.travel.id)
+                        }
+                        btnEdit.setOnClickListener {
+                            action("openEditTravelFragment", travel.travel.id)
+                        }
                     }
                 }
             }
